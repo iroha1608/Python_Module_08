@@ -1,5 +1,6 @@
 import sys
 
+
 def check_dependencies() -> bool:
     print("LOADING STATUS: Loading programs...")
     print()
@@ -32,13 +33,14 @@ def check_dependencies() -> bool:
             f"- Visualization ready"
         )
     except ImportError:
-        print("[FAIL] matplotlib is missing")
+        print("[FAIL] matplotlib is missing", file=sys.stderr)
         program_ready_flag = False
 
     try:
         import numpy
+        print(f"[OK] numpy ({numpy.__version__})")
     except ImportError:
-        print("[FAIL] numpy is missing")
+        print("[FAIL] numpy is missing", file=sys.stderr)
         program_ready_flag = False
 
     print()
@@ -52,7 +54,7 @@ def run_analysis() -> None:
 
     num_points = 1000
     # numpy.random.randn 標準正規分布に従って配列(ndarray)に保存し返す
-    #data = np.random.randn(num_points)
+    # data = np.random.randn(num_points)
     # cumsum() 累積し配列に保存 -> 折れ線グラフに最適化
     data = np.random.randn(num_points).cumsum()
     df = pd.DataFrame({"Signal": data})
@@ -69,7 +71,7 @@ def run_analysis() -> None:
     # matplotlib.pyplot.plot() 折れ線グラフ
     plt.plot(df["Signal"], color="green", alpha=0.7)
     # matplotlib.pyplot.hist() ヒストグラフ
-    #plt.hist(df["Signal"])
+    # plt.hist(df["Signal"])
 
     # matplotlib.pyplot.title 生成する画像内に表示するタイトル
     plt.title("Matrix Signal Analysis")
